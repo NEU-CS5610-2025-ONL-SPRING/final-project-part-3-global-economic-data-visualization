@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,37 +8,38 @@ datasource db {
 }
 
 model User {
-  id             Int             @id @default(autoincrement())
-  username       String          @unique
-  email          String          @unique
-  password_hash  String
-  created_at     DateTime        @default(now())
-  updated_at     DateTime        @updatedAt
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
-  subscriptions  Subscription[]
+  subscriptions Subscription[]
 }
 
 model Indicator {
-  id            Int             @id @default(autoincrement())
-  code          String          @unique
-  name          String
-  description   String?
-  created_at    DateTime        @default(now())
-  updated_at    DateTime        @updatedAt
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  name        String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   subscriptions Subscription[]
 }
 
 model Subscription {
-  id            Int            @id @default(autoincrement())
-  user_id       Int
-  country_code  String
-  indicator_id  Int
-  created_at    DateTime       @default(now())
-  updated_at    DateTime       @updatedAt
-  note          String?
+  id           Int      @id @default(autoincrement())
+  user_id      Int
+  indicator_id Int
+  country_code String
+  note         String?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
-  user          User           @relation(fields: [user_id], references: [id])
+  user      User      @relation(fields: [user_id], references: [id])
+  indicator Indicator @relation(fields: [indicator_id], references: [id])
 
-  indicator     Indicator      @relation(fields: [indicator_id], references: [id])
+  @@unique([user_id, indicator_id]) //Prevent users to subscribe an indicator for more than one time.
 }
