@@ -18,7 +18,7 @@ export default function SubscriptionsListPage() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions`, {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions`, {
             method: 'GET',
             credentials: 'include'
         })
@@ -39,7 +39,7 @@ export default function SubscriptionsListPage() {
 
     const handleDelete = (id: number) => {
         if (!confirm('Are you sure to delete?')) return
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions/${id}`, {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         })
@@ -86,7 +86,6 @@ export default function SubscriptionsListPage() {
                             <td>{s.country_code}</td>
                             <td>{s.note || ''}</td>
                             <td>
-                                {/* 跳转到编辑页面: /subscriptions/edit/123 */}
                                 <button onClick={() => navigate(`/subscriptions/edit/${s.id}`)}>
                                     Edit
                                 </button>

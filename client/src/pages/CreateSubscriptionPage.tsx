@@ -17,7 +17,7 @@ export default function CreateSubscriptionPage() {
             return
         }
 
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions`, {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions`, {
             method: 'POST',
             credentials: 'include',
             headers: {

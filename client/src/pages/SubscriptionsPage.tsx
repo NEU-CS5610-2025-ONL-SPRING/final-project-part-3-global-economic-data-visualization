@@ -18,7 +18,7 @@ export function SubscriptionsPage() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions`, {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions`, {
             method: 'GET',
             credentials: 'include'
         })
@@ -42,7 +42,7 @@ export function SubscriptionsPage() {
     const handleDelete = (id: number) => {
         if (!confirm('Are you sure to delete this subscription?')) return
 
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions/${id}`, {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         })

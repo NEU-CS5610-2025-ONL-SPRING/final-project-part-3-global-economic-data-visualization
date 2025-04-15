@@ -34,7 +34,7 @@ export function SubscriptionFormPage() {
 
         if (isEditMode) {
             setLoading(true)
-            fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions/${id}`, {
+            fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
                 method: 'GET',
                 credentials: 'include'
             })
@@ -72,8 +72,7 @@ export function SubscriptionFormPage() {
         }
 
         if (isEditMode) {
-            // 调用 PUT /subscriptions/:id
-            fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions/${id}`, {
+            fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -100,7 +99,7 @@ export function SubscriptionFormPage() {
                 })
                 .finally(() => setLoading(false))
         } else {
-            fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions`, {
+            fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

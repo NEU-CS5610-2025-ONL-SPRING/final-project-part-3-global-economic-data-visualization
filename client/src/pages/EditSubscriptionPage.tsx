@@ -10,8 +10,8 @@ export default function EditSubscriptionPage() {
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        // 拉取订阅详情
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions/${id}`, {
+
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
             credentials: 'include'
         })
             .then(async (res) => {
@@ -30,7 +30,7 @@ export default function EditSubscriptionPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions/${id}`, {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
             method: 'PUT',
             credentials: 'include',
             headers: {
