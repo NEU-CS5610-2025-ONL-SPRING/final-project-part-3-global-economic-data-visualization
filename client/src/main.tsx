@@ -14,6 +14,7 @@ import CreateIndicatorPage from './pages/CreateIndicatorPage.tsx'
 import SubscriptionsListPage from './pages/SubscriptionsListPage.tsx'
 import CreateSubscriptionPage from './pages/CreateSubscriptionPage.tsx'
 import EditSubscriptionPage from './pages/EditSubscriptionPage.tsx'
+import WorldBankPage from './pages/WorldBankPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: 'worldbank', element: <WorldBankPage /> },
       { path: 'register', element: <RegisterPage /> },
       { path: 'login', element: <LoginPage /> },
       { path: 'indicators', element: <IndicatorsListPage /> },
@@ -32,7 +34,7 @@ const router = createBrowserRouter([
   },
 ])
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>

@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 import authRoutes from './routes/auth.routes.js'
 import indicatorsRoutes from './routes/indicators.routes.js'
 import subscriptionRoutes from "./routes/subscriptions.routes.js";
-
+import worldbankRoutes from "./routes/worldbank.routes.js";
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -24,6 +24,7 @@ app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/indicators', indicatorsRoutes)
 app.use('/api/subscriptions', subscriptionRoutes)
+app.use('/api/worldbank', worldbankRoutes)
 
 app.get('/ping', (req, res) => {
   res.send('pong')
