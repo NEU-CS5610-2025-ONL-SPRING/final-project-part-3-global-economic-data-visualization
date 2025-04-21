@@ -62,6 +62,13 @@ export default function CreateSubscriptionPage() {
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
                     />
+                    <button
+                        type="button"
+                        onClick={() => navigate('/country-search')}
+                        style={{ marginLeft: '0.5rem' }}
+                    >
+                        Search Country Code
+                    </button>
                 </div>
                 <div>
                     <label>Note (optional):</label>
@@ -72,7 +79,7 @@ export default function CreateSubscriptionPage() {
                     />
                 </div>
                 <button type="submit">Create</button>
-                <button type="button" onClick={() => navigate('/subscriptions')}>
+                <button type="button" onClick={() => navigate('/subscriptions')} style={{ marginLeft: '0.5rem' }}>
                     Back
                 </button>
             </form>

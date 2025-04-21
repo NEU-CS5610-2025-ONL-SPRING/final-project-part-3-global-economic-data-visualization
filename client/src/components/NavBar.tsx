@@ -12,7 +12,8 @@ function NavBar() {
             <Link to="/indicators">Indicators</Link> |{' '}
             <Link to="/indicators/create">Create Indicator</Link> |{' '}
             <Link to="/subscriptions">Subscriptions</Link> |{' '}
-            <Link to="/subscriptions/create">Create Subscription</Link>
+            <Link to="/subscriptions/create">Create Subscription</Link> |{' '}
+            <Link to="/WorldBank">WorldBank API</Link>
 
             {' '}<LogoutButton />
         </nav>

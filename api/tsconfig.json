@@ -9,7 +9,15 @@
     "strict": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "sourceMap": true
+    "sourceMap": true,
+    // Prevent emitting output if there are errors
+    "noEmitOnError": true,
+    // Simplify import paths
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
+    "types": ["node"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
-
 import App from './App.tsx'
 import HomePage from './pages/HomePage.tsx'
 import RegisterPage from './pages/RegisterPage.tsx'
@@ -15,7 +14,9 @@ import SubscriptionsListPage from './pages/SubscriptionsListPage.tsx'
 import CreateSubscriptionPage from './pages/CreateSubscriptionPage.tsx'
 import EditSubscriptionPage from './pages/EditSubscriptionPage.tsx'
 import WorldBankPage from './pages/WorldBankPage.tsx'
+import CountrySearchPage from "./pages/CountrySearchPage.tsx";
 
+// Define application routes using createBrowserRouter
 const router = createBrowserRouter([
   {
     path: '/',
@@ -30,12 +31,13 @@ const router = createBrowserRouter([
       { path: 'subscriptions', element: <SubscriptionsListPage /> },
       { path: 'subscriptions/create', element: <CreateSubscriptionPage /> },
       { path: 'subscriptions/edit/:id', element: <EditSubscriptionPage /> },
+      { path: 'country-search', element: <CountrySearchPage /> },
     ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
 )
