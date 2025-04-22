@@ -11,7 +11,8 @@ import subscriptionRoutes from "./routes/subscriptions.routes.js"
 import worldbankRoutes from "./routes/worldbank.routes.js"
 import usersRoutes from "./routes/users.routes.js"
 import worldbankSeriesRoutes from './routes/worldbankSeries.routes.js'
-import worldbankImportRoutes from "./routes/worldbankImport.router.js"  // 改名为 worldbankImportRoutes
+import worldbankImportRoutes from './routes/worldbankImport.router.js'
+import router from "./routes/auth.routes.js";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -25,6 +26,7 @@ app.use(cors({
 app.use(cookieParser())
 app.use(express.json())
 
+app.use('/api', router)
 app.use('/api/auth', authRoutes)
 app.use('/api/indicators', indicatorsRoutes)
 app.use('/api/subscriptions', subscriptionRoutes)
