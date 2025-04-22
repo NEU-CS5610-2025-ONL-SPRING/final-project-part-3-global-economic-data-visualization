@@ -18,6 +18,9 @@ check my video:
 
 https://youtu.be/kL12JjuIme8
 
+（Please note that I made some final CSS adjustment and the layout in the video is slightly different but shall work the same;
+I have lighthouse reports from different version.）
+
 
 ## 🛠️ Tech Stack
 
