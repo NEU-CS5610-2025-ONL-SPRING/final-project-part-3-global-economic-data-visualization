@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename)
 const app = express()
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: true,
   credentials: true
 }))
 app.use(cookieParser())
