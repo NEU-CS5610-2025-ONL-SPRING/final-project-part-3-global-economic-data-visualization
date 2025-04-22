@@ -5,7 +5,7 @@ const LogoutButton: React.FC = () => {
 
     const handleLogout = async () => {
         try {
-            const res = await fetch('http://localhost:3001/api/auth/logout', {
+            const res = await fetch('api/auth/logout', {
                 method: 'POST',
                 credentials: 'include',
             })

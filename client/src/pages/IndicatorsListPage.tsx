@@ -20,7 +20,7 @@ function IndicatorsListPage() {
     const fetchIndicators = async () => {
         setIsLoading(true)
         try {
-            const res = await fetch('http://localhost:3001/api/indicators', {
+            const res = await fetch('/api/indicators', {
                 credentials: 'include'
             })
             if (!res.ok) {
