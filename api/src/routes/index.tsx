@@ -1,4 +1,4 @@
-import express, { Router, Request, Response, NextFunction } from 'express'
+import { Router, Request, Response, NextFunction } from 'express'
 import authRoutes from './auth.routes.js'
 import indicatorsRoutes from './indicators.routes.js'
 import subscriptionsRoutes from './subscriptions.routes.js'
@@ -10,7 +10,7 @@ import worldbankImportRoutes from './worldbankImport.router.js'
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 
-const router = express.Router();
+const router = Router()
 
 router.use(cors({
     origin: process.env.CORS_ORIGIN || '*',
