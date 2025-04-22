@@ -23,13 +23,11 @@ export function SubscriptionsPage() {
             credentials: 'include'
         })
             .then(async (res) => {
-
                 const contentType = res.headers.get('content-type');
                 if (!contentType || !contentType.includes('application/json')) {
-
                     const text = await res.text();
                     console.error('non-json:', text);
-                    throw new Error('the server returned a non-json');
+                    throw new Error('the server returned a non-json.');
                 }
 
                 if (!res.ok) {

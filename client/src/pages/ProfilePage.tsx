@@ -24,13 +24,20 @@ const ProfilePage: React.FC = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/me`, {
+                const response = await fetch('http://localhost:3001/api/users/me', {
                     method: 'GET',
                     credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
+
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    console.error('Non-JSON response:', text);
+                    throw new Error('Server returned a non-JSON response');
+                }
 
                 if (!response.ok) {
                     const errorData = await response.json();
@@ -74,7 +81,7 @@ const ProfilePage: React.FC = () => {
                 ...(formData.password ? { password: formData.password } : {}),
             };
 
-            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/me`, {
+            const response = await fetch('http://localhost:3001/api/users/me', {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -82,6 +89,13 @@ const ProfilePage: React.FC = () => {
                 },
                 body: JSON.stringify(updateData),
             });
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                const text = await response.text();
+                console.error('Non-JSON response:', text);
+                throw new Error('Server returned a non-JSON response');
+            }
 
             if (!response.ok) {
                 const errorData = await response.json();

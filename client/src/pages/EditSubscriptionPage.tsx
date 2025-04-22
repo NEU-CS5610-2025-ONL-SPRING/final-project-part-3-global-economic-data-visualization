@@ -10,11 +10,17 @@ export default function EditSubscriptionPage() {
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
+        fetch(`http://localhost:3001/api/subscriptions/${id}`, {
             credentials: 'include'
         })
             .then(async (res) => {
+                const contentType = res.headers.get('content-type')
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await res.text()
+                    console.error('Non-JSON response:', text)
+                    throw new Error('Server returned a non-JSON response')
+                }
+
                 if (!res.ok) {
                     const errData = await res.json()
                     throw new Error(errData.error || 'Failed to get subscription')
@@ -30,11 +36,12 @@ export default function EditSubscriptionPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
+        fetch(`http://localhost:3001/api/subscriptions/${id}`, {
             method: 'PUT',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 country_code: countryCode,
@@ -42,6 +49,13 @@ export default function EditSubscriptionPage() {
             })
         })
             .then(async (res) => {
+                const contentType = res.headers.get('content-type')
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await res.text()
+                    console.error('Non-JSON response:', text)
+                    throw new Error('Server returned a non-JSON response')
+                }
+
                 if (!res.ok) {
                     const errData = await res.json()
                     throw new Error(errData.error || 'Failed to update')

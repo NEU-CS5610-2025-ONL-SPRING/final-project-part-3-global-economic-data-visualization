@@ -17,11 +17,12 @@ export default function CreateSubscriptionPage() {
             return
         }
 
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions`, {
+        fetch('http://localhost:3001/api/subscriptions', {
             method: 'POST',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 indicator_id: indicatorId,
@@ -30,6 +31,13 @@ export default function CreateSubscriptionPage() {
             })
         })
             .then(async (res) => {
+                const contentType = res.headers.get('content-type')
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await res.text()
+                    console.error('Non-JSON response:', text)
+                    throw new Error('Server returned a non-JSON response')
+                }
+
                 if (!res.ok) {
                     const errData = await res.json()
                     throw new Error(errData.error || 'Create failed')

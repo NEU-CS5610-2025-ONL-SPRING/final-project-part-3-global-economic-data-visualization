@@ -18,21 +18,33 @@ export default function SubscriptionsListPage() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions`, {
+        // Using hardcoded URL like in the IndicatorsListPage
+        fetch('http://localhost:3001/api/subscriptions', {
             method: 'GET',
-            credentials: 'include'
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json'
+            }
         })
             .then(async (res) => {
+                const contentType = res.headers.get('content-type')
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await res.text()
+                    console.error('non-json:', text)
+                    throw new Error('Server returned non-JSON data')
+                }
+
                 if (!res.ok) {
                     const errData = await res.json()
                     throw new Error(errData.error || 'Failed to fetch')
                 }
-                return res.json() as Promise<SubscriptionItem[]>
+                return res.json()
             })
             .then((data) => {
                 setSubs(data)
             })
             .catch((err) => {
+                console.error('Fetch subscriptions error:', err)
                 setError(err.message)
             })
     }, [])
@@ -43,11 +55,23 @@ export default function SubscriptionsListPage() {
 
     const handleDelete = (id: number) => {
         if (!confirm('Are you sure to delete?')) return
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
+
+        // Using hardcoded URL like in the IndicatorsListPage
+        fetch(`http://localhost:3001/api/subscriptions/${id}`, {
             method: 'DELETE',
-            credentials: 'include'
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json'
+            }
         })
             .then(async (res) => {
+                const contentType = res.headers.get('content-type')
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await res.text()
+                    console.error('non-json:', text)
+                    throw new Error('Server returned non-JSON data')
+                }
+
                 if (!res.ok) {
                     const errData = await res.json()
                     throw new Error(errData.error || 'Delete failed')

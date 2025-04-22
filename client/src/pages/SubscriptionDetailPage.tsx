@@ -35,7 +35,6 @@ interface WorldBankResponse {
     facets?: Record<string, unknown>
 }
 
-// The shape we get from /api/data/wbseries
 interface TimeSeriesRow {
     year: number
     value: number | null
@@ -91,11 +90,11 @@ export default function SubscriptionDetailPage() {
         return response;
     }
 
-    // 1) Fetch subscription => get country_code, indicator_id, ...
     const fetchSubscription = async (subId: number) => {
         try {
             setLoading(true)
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${subId}`, {
+            // Using hardcoded URL instead of environment variable
+            const res = await fetch(`http://localhost:3001/api/subscriptions/${subId}`, {
                 credentials: 'include'
             })
 
@@ -137,10 +136,10 @@ export default function SubscriptionDetailPage() {
         }
     }
 
-    // fetch indicator by ID if sub didn't have it
     const fetchIndicator = async (indicatorId: number): Promise<Indicator | null> => {
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/indicators/${indicatorId}`, {
+            // Using hardcoded URL instead of environment variable
+            const res = await fetch(`http://localhost:3001/api/indicators/${indicatorId}`, {
                 credentials: 'include'
             })
 
@@ -164,8 +163,9 @@ export default function SubscriptionDetailPage() {
 
     const fetchWorldBankDocs = async (countryName: string, indicatorName: string) => {
         try {
+            // Using hardcoded URL instead of environment variable
             const wbRes = await fetch(
-                `${import.meta.env.VITE_API_BASE_URL}/api/worldbank?country=${encodeURIComponent(countryName)}&indicator=${encodeURIComponent(indicatorName)}`,
+                `http://localhost:3001/api/worldbank?country=${encodeURIComponent(countryName)}&indicator=${encodeURIComponent(indicatorName)}`,
                 { credentials: 'include' }
             )
 
@@ -192,7 +192,8 @@ export default function SubscriptionDetailPage() {
 
     const fetchWorldBankTimeSeries = async (countryCode: string, indicatorCode: string) => {
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/data/wbseries?country=${countryCode}&indicator=${indicatorCode}`, {
+            // Using hardcoded URL instead of environment variable
+            const res = await fetch(`http://localhost:3001/api/data/wbseries?country=${countryCode}&indicator=${indicatorCode}`, {
                 credentials: 'include'
             })
 
@@ -229,10 +230,9 @@ export default function SubscriptionDetailPage() {
             setTimeSeries(json.rows);
         } catch (err: unknown) {
             console.error('Error fetching time series:', err);
-
             setTimeSeries([]);
             if (err instanceof Error) {
-
+                // Set a specific error for this section rather than the whole component
                 console.error(err.message);
             }
         }
