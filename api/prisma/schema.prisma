@@ -22,7 +22,7 @@ model Indicator {
   id          Int      @id @default(autoincrement())
   code        String   @unique
   name        String
-  description String?
+  description String?  @db.VarChar(5000)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -43,3 +43,15 @@ model Subscription {
 
   @@unique([user_id, indicator_id]) //Prevent users to subscribe an indicator for more than one time.
 }
+
+model WBData {
+  id           Int      @id @default(autoincrement())
+  country      String
+  indicator    String
+  year         Int
+  value        Float?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+}
+

@@ -37,6 +37,10 @@ export default function SubscriptionsListPage() {
             })
     }, [])
 
+    const handleDetail = (id: number) => {
+        navigate(`/subscriptions/detail/${id}`)
+    }
+
     const handleDelete = (id: number) => {
         if (!confirm('Are you sure to delete?')) return
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/subscriptions/${id}`, {
@@ -90,6 +94,7 @@ export default function SubscriptionsListPage() {
                                     Edit
                                 </button>
                                 <button onClick={() => handleDelete(s.id)}>Delete</button>
+                                <button onClick={() => handleDetail(s.id)}>Detail</button>
                             </td>
                         </tr>
                     ))}

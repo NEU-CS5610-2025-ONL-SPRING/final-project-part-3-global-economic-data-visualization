@@ -23,21 +23,29 @@ export function SubscriptionsPage() {
             credentials: 'include'
         })
             .then(async (res) => {
-                if (!res.ok) {
-                    // 如果返回非200，尝试解析错误信息
-                    const errData = await res.json()
-                    throw new Error(errData.error || 'Failed to fetch subscriptions')
+
+                const contentType = res.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+
+                    const text = await res.text();
+                    console.error('non-json:', text);
+                    throw new Error('the server returned a non-json');
                 }
-                return res.json() as Promise<SubscriptionItem[]>
+
+                if (!res.ok) {
+                    const errData = await res.json();
+                    throw new Error(errData.error || 'Failed to fetch subscriptions');
+                }
+                return res.json();
             })
             .then((data) => {
-                setSubscriptions(data)
+                setSubscriptions(data);
             })
             .catch((err) => {
-                console.error('Fetch subscriptions error:', err)
-                setError(err.message)
-            })
-    }, [])
+                console.error('Fetch subscriptions error:', err);
+                setError(err.message);
+            });
+    }, []);
 
     const handleDelete = (id: number) => {
         if (!confirm('Are you sure to delete this subscription?')) return
@@ -47,28 +55,50 @@ export function SubscriptionsPage() {
             credentials: 'include'
         })
             .then(async (res) => {
-                if (!res.ok) {
-                    const errData = await res.json()
-                    throw new Error(errData.error || 'Failed to delete')
+                const contentType = res.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await res.text();
+                    console.error('non-json:', text);
+                    throw new Error('the server returned a non-json');
                 }
 
-                setSubscriptions((prev) => prev.filter((sub) => sub.id !== id))
+                if (!res.ok) {
+                    const errData = await res.json();
+                    throw new Error(errData.error || 'Failed to delete');
+                }
+
+                setSubscriptions((prev) => prev.filter((sub) => sub.id !== id));
             })
             .catch((err) => {
-                alert('Error: ' + err.message)
-            })
+                alert('Error: ' + err.message);
+            });
     }
 
     const handleCreateNew = () => {
-        navigate('/subscriptions/new')
+        navigate('/subscriptions/new');
     }
 
     const handleEdit = (id: number) => {
-        navigate(`/subscriptions/edit/${id}`)
+        navigate(`/subscriptions/edit/${id}`);
+    }
+
+    const handleViewDetail = (id: number) => {
+        navigate(`/subscriptions/detail/${id}`);
     }
 
     if (error) {
-        return <div style={{ color: 'red' }}>Error: {error}</div>
+        return (
+            <div style={{ padding: '1rem' }}>
+                <h1>My Subscriptions</h1>
+                <div style={{ color: 'red', marginBottom: '1rem' }}>
+                    Error: {error}
+                    <div>
+                        <button onClick={() => setError(null)}>重试</button>
+                        <button onClick={() => navigate('/')}>返回首页</button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -100,6 +130,7 @@ export function SubscriptionsPage() {
                             <td>
                                 <button onClick={() => handleEdit(sub.id)}>Edit</button>
                                 <button onClick={() => handleDelete(sub.id)}>Delete</button>
+                                <button onClick={() => handleViewDetail(sub.id)}>Detail</button>
                             </td>
                         </tr>
                     ))}
