@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  subscriptions Subscription[]
+}
+
+model Indicator {
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  name        String
+  description String?  @db.VarChar(5000)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id           Int      @id @default(autoincrement())
+  user_id      Int
+  indicator_id Int
+  country_code String
+  note         String?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  user      User      @relation(fields: [user_id], references: [id])
+  indicator Indicator @relation(fields: [indicator_id], references: [id])
+
+  @@unique([user_id, indicator_id]) //Prevent users to subscribe an indicator for more than one time.
+}
+
+model WBData {
+  id           Int      @id @default(autoincrement())
+  country      String
+  indicator    String
+  year         Int
+  value        Float?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+}
+
