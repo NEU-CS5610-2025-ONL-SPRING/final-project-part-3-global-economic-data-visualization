@@ -12,7 +12,6 @@ My online deployment was not successful(possible CORS issue makes the frontend u
 You can check my deployed website built on another version of commit below, which is more buggy;
  This local hardcoded version is supposed to work better.
 
-https://final-project-part-3-global-economic.onrender.com
 https://final-project-part-3-global-economic-data-visualization.vercel.app/
 
 check my video:
