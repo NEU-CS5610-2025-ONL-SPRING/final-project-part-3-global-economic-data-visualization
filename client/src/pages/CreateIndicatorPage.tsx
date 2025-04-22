@@ -14,7 +14,7 @@ function CreateIndicatorPage() {
     setIsSubmitting(true)
 
     try {
-      const res = await fetch('api/indicators', {
+      const res = await fetch('http://localhost:3001/api/indicators', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
