@@ -7,13 +7,13 @@ This is a full-stack SaaS web application built for the CS-5610 Final Project (S
 It allows users to manage and visualize country-level economic indicators using data from the World Bank API.
 
 PLEASE NOTE:
-My online deployment was not successful, this version was hardcoded with local environment.
+My online deployment was not successful(possible CORS issue makes the frontend unable to fetch backend at render.com, while backend/database deployement was succeeful on render and railway.), this version was hardcoded with local environment.
 
-You can check my deployed website built on another version of commit, which is more buggy; This 
-local hardcoded version is supposed to work better.
-
+You can check my deployed website built on another version of commit below, which is more buggy;
+ This local hardcoded version is supposed to work better.
 
 https://final-project-part-3-global-economic.onrender.com
+https://final-project-part-3-global-economic-data-visualization.vercel.app/
 
 check my video:
 
